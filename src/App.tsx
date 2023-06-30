@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import {Button} from "react-bootstrap";
+import React, { useEffect } from 'react';
+import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoffee, faLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { FaThumbsUp, FaMapMarker } from 'react-icons/fa';
@@ -8,14 +8,15 @@ import { useSelector } from "react-redux";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import {Tooltip} from "./tools/Tooltip/Tooltip";
+import { Tooltip } from "./tools/Tooltip/Tooltip";
 import Locate from "./features/locate/Locate";
-import {selectLocateIP} from "./features/locate/selectors";
-import {getlocationIP} from "./features/locate/locateSlice";
-import {useAppDispatch} from "./store";
+import { selectLocateIP } from "./features/locate/selectors";
+import { getlocationIP } from "./features/locate/locateSlice";
+import { useAppDispatch } from "./store";
 import MapComponent from './features/map/Map';
+import { NavLink } from 'react-router-dom';
 
-function App(){
+function App() {
     const dispatch = useAppDispatch();
     const value = useSelector(selectLocateIP);
 
@@ -34,13 +35,13 @@ function App(){
         let longitude = 0;
 
         navigator.geolocation.getCurrentPosition(
-              function (position):{ latitude: number, longitude: number } {
+            function (position): { latitude: number, longitude: number } {
                 obj.latitude = position.coords.latitude;
                 obj.longitude = position.coords.longitude;
                 console.log(position.coords.longitude)
-                  // const hhh = document.getElementById("h1");
-                  //   // @ts-ignore
-                  // hhh.innerHTML = Math.round(obj.longitude) + "&#176;";
+                // const hhh = document.getElementById("h1");
+                //   // @ts-ignore
+                // hhh.innerHTML = Math.round(obj.longitude) + "&#176;";
                 return obj;
             });
         console.log("OBJ: " + obj)
@@ -49,7 +50,7 @@ function App(){
     }
 
 
-    function weatherSubscription(weathercode:number):any {
+    function weatherSubscription(weathercode: number): any {
         switch (weathercode) {
             case 0:
                 return "Clear sky"
@@ -150,7 +151,7 @@ function App(){
         const { current_weather: { temperature, windspeed, weathercode }
         } = obj;
         console.log("temp" + temperature);
-        console.log("wind "+windspeed);
+        console.log("wind " + windspeed);
         console.log(weathercode);
         console.log(weatherSubscription(weathercode));
 
@@ -160,7 +161,7 @@ function App(){
     const coord = getfromNavigator()
     getWeather(coord.latitude, coord.longitude)
 
-    function transparent(){
+    function transparent() {
         const myClass = document.getElementById("wrapper");
         // @ts-ignore
         myClass.classList.add("newMap");
@@ -184,101 +185,103 @@ function App(){
     }
 
 
-  // @ts-ignore
+    // @ts-ignore
     // @ts-ignore
     return (
-      <>
-          <Locate />
+        <>
+            <Locate />
 
-          <div className="cloud">
-              <img id="cloud1" className="cloud1" src="img/cloud-01.png" alt="cloud_1"/>
-              <img id="cloud2" className="cloud2" src="img/cloud-02.png" alt="cloud_2"/>
-              <img id="cloud3" className="cloud3" src="img/cloud-03.png" alt="cloud_3"/>
-              <img id="cloud4" className="cloud4" src="img/cloud-04.png" alt="cloud_4"/>
-          </div>
-          <div className="wrapper" id="wrapper">
-{/*              <div className="shape shape-1"></div>
+            <div className="cloud">
+                <img id="cloud1" className="cloud1" src="img/cloud-01.png" alt="cloud_1" />
+                <img id="cloud2" className="cloud2" src="img/cloud-02.png" alt="cloud_2" />
+                <img id="cloud3" className="cloud3" src="img/cloud-03.png" alt="cloud_3" />
+                <img id="cloud4" className="cloud4" src="img/cloud-04.png" alt="cloud_4" />
+            </div>
+            <div className="wrapper" id="wrapper">
+                {/*              <div className="shape shape-1"></div>
               <div className="shape shape-2"></div>*/}
 
                 <div className="container">
-                            <div id="result">
-                                <div className="d-flex justify-content-between align-items-center">
-                                    <h2>{value.city}</h2>
-                                    <FontAwesomeIcon onClick={transparent} className="icon_map" icon={faLocationDot} />
+                    <div id="result">
+                        <div className="d-flex justify-content-between align-items-center">
+                            <h2>{value.city}</h2>
+                            <NavLink to="/map">
+                                <FontAwesomeIcon className="icon_map" icon={faLocationDot} />
+                            </NavLink>
+                        </div>
+                        <h1 id="h1">20 &#176;</h1>
+
+                        <div className="temperature-img">
+                            <div>
+                                <h4 className="weather">RAIN</h4>
+                                <h4 className="desc">MODERATE RAIN</h4>
+                            </div>
+
+                        </div>
+
+                        <div className="temp-container d-flex">
+                            <div className="wind-speed d-flex">
+                                <h4 className="temp"><span className="wind">wind speed:</span> 0.89 km/h</h4>
+                                <h4 className="temp"><span className="humidity">humidity:</span> 80 %</h4>
+                            </div>
+                            <div className="d-flex min-max justify-content-between">
+                                <div className="min-max__grad">
+                                    <h4 className="title">min</h4>
+                                    <h4 className="temp">19 &#176;</h4>
                                 </div>
-                                        <h1 id="h1">20 &#176;</h1>
-
-                                      <div className="temperature-img">
-                                          <div>
-                                              <h4 className="weather">RAIN</h4>
-                                              <h4 className="desc">MODERATE RAIN</h4>
-                                          </div>
-
-                                      </div>
-
-                                      <div className="temp-container d-flex">
-                                          <div className="wind-speed d-flex">
-                                              <h4 className="temp"><span className="wind">wind speed:</span> 0.89 km/h</h4>
-                                              <h4 className="temp"><span className="humidity">humidity:</span> 80 %</h4>
-                                          </div>
-                                          <div className="d-flex min-max justify-content-between">
-                                              <div className="min-max__grad">
-                                                  <h4 className="title">min</h4>
-                                                  <h4 className="temp">19 &#176;</h4>
-                                              </div>
-                                              <div>
-                                                  <h4 className="title">max</h4>
-                                                  <h4 className="temp">20 &#176;</h4>
-                                              </div>
-                                          </div>
-
-                                      </div>
-
-                                <div className="warm d-flex align-items-center justify-content-between">
-                                    <div>
-                                        <img onClick={()=>{console.log("WARM")}} src="img/palma.png" width="100px" />
-                                    </div>
-                                    <div className="d-flex align-items-center justify-content-between">
-                                        <p className="arrow">←</p>
-                                        <p className="i-want">I want to</p>
-                                        <p className="arrow">→</p>
-                                    </div>
-                                    <div>
-                                        <img onClick={()=>{console.log("KALT")}} src="img/sneg.png" width="100px" />
-                                    </div>
+                                <div>
+                                    <h4 className="title">max</h4>
+                                    <h4 className="temp">20 &#176;</h4>
                                 </div>
-                                <p className="ip">Your IP is: {value.ip_address}</p>
-                  </div>
-              </div>
-          </div>
+                            </div>
 
-          <div id="map" className="map">
-          <MapComponent />
+                        </div>
+
+                        <div className="warm d-flex align-items-center justify-content-between">
+                            <div>
+                                <img onClick={() => { console.log("WARM") }} src="img/palma.png" width="100px" />
+                            </div>
+                            <div className="d-flex align-items-center justify-content-between">
+                                <p className="arrow">←</p>
+                                <p className="i-want">I want to</p>
+                                <p className="arrow">→</p>
+                            </div>
+                            <div>
+                                <img onClick={() => { console.log("KALT") }} src="img/sneg.png" width="100px" />
+                            </div>
+                        </div>
+                        <p className="ip">Your IP is: {value.ip_address}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="map" className="map">
+                <MapComponent />
                 <div className="popUp">
-                  <h1 className="temperature">20 &#176;</h1>
+                    <h1 className="temperature">20 &#176;</h1>
 
-                  <div className="temperature-img">
-                      <div>
-                          <h4 className="weather">RAIN</h4>
-                          <h4 className="desc">MODERATE RAIN</h4>
-                      </div>
-                  </div>
+                    <div className="temperature-img">
+                        <div>
+                            <h4 className="weather">RAIN</h4>
+                            <h4 className="desc">MODERATE RAIN</h4>
+                        </div>
+                    </div>
                     <hr />
 
-                  <div className="temp-container-mini d-flex">
-                      <div>
-                          <h4 className="temp"><span className="wind">wind speed:</span></h4>
-                          <h4>0.89 km/h</h4>
-                      </div>
-                      <div className="humidity_mini">
+                    <div className="temp-container-mini d-flex">
+                        <div>
+                            <h4 className="temp"><span className="wind">wind speed:</span></h4>
+                            <h4>0.89 km/h</h4>
+                        </div>
+                        <div className="humidity_mini">
                             <h4 className="temp"><span className="humidity">humidity:</span></h4>
-                          <h4> 80%</h4>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </>
-  );
+                            <h4> 80%</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </>
+    );
 }
 
 export default App;
