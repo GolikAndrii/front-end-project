@@ -20,10 +20,10 @@ import { selectWeather } from './features/weather/selectors';
 
 
 function App() {
-    const dispatch = useAppDispatch();
+
     const value = useSelector(selectLocateIP);
     const weather = useSelector(selectWeather)
-
+    const dispatch = useAppDispatch();
     useEffect(() => {
         dispatch(getlocationIP());
 
@@ -204,7 +204,7 @@ function App() {
                                 <FontAwesomeIcon className="icon_map" icon={faLocationDot} />
                             </NavLink>
                         </div>
-                        <h1 id="h1">{weather.windspeed + ""} &#176;</h1>
+                        <h1 id="h1">{weather.current_weather.temperature + ""} &#176;</h1>
 
                         <div className="temperature-img">
                             <div>

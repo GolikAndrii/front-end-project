@@ -1,5 +1,7 @@
 export default interface Weather {
-    temperature: number,
-    windspeed: number,
-    weathercode: number
+    current_weather: {
+        temperature: number,
+        windspeed: number,
+        weathercode: number
+    }
 }

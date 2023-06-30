@@ -6,9 +6,11 @@ import WeatherState from './types/WeatherState';
 
 const initialState: WeatherState = {
     weather: {
-        temperature: 0,
-        windspeed: 0,
-        weathercode: 0
+        current_weather: {
+            temperature: 0,
+            windspeed: 0,
+            weathercode: 0
+        }
     },
     error: undefined
 };
