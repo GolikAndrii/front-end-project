@@ -17,7 +17,7 @@ const zoom = 12;
 
 function ChangeView() {
 
-    const coords = useSelector((state:any) => state.root.userData);
+    const coords = useSelector((state: any) => state.root.userData);
 
     const map = useMap();
     map.setView([coords.latitude, coords.longitude], zoom);
@@ -28,7 +28,7 @@ function ChangeView() {
 const MapComponent = () => {
     const dispatch = useDispatch();
     // @ts-ignore
-    const coord = useSelector((state:any) => state.root.userData);
+    const coord = useSelector((state: any) => state.root.userData);
 
     useEffect(() => {
         if (navigator?.geolocation) {
@@ -39,22 +39,6 @@ const MapComponent = () => {
     }, []);
 
 
-    async function getWeather() {
-
-        console.log(coord);
-
-        const linkWeather = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`
-        const response = await fetch(linkWeather);
-        const obj = await response.json();
-        const { current_weather: { temperature, windspeed, weathercode }
-        } = obj;
-        console.log("temp" + temperature);
-        console.log(windspeed);
-        console.log(weathercode);
-        console.log(weatherSubscription(weathercode));
-        // let weather = document.getElementById('weather')?.innerText
-        // weather = `temp: {temperature} wind {windspeed}`
-    }
 
     // getWeather()
     function weatherSubscription(weathercode: any) {

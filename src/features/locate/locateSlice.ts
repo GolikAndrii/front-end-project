@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import Weather from '../weather/types/Weather';
 
 
 import * as api from './api';
@@ -9,7 +10,12 @@ const initialState: LocateState = {
         ip_address: "no ip",
         latitude: 0,
         longitude: 0,
-        city: "no city"
+        city: "no city",
+    },
+    current_weather: {
+        temperature: 0,
+        windspeed: 0,
+        weathercode: 0
     },
     error: undefined
 };

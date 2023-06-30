@@ -15,15 +15,23 @@ import { getlocationIP } from "./features/locate/locateSlice";
 import { useAppDispatch } from "./store";
 import MapComponent from './features/map/Map';
 import { NavLink } from 'react-router-dom';
+import { getWeather } from './features/weather/weatherSlice';
+import { selectWeather } from './features/weather/selectors';
+
 
 function App() {
     const dispatch = useAppDispatch();
     const value = useSelector(selectLocateIP);
+    const weather = useSelector(selectWeather)
 
     useEffect(() => {
         dispatch(getlocationIP());
+
     }, [dispatch]);
-    // getlocationIP();
+
+    useEffect(() => {
+        dispatch(getWeather({ latitude: value.latitude, longitude: value.longitude }));
+    }, [dispatch, value]);
 
     const obj = {
         latitude: 0,
@@ -143,23 +151,10 @@ function App() {
     }
 
 
-    async function getWeather(latitude: number, longitude: number) {
-
-        const linkWeather = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`
-        const response = await fetch(linkWeather);
-        const obj = await response.json();
-        const { current_weather: { temperature, windspeed, weathercode }
-        } = obj;
-        console.log("temp" + temperature);
-        console.log("wind " + windspeed);
-        console.log(weathercode);
-        console.log(weatherSubscription(weathercode));
-
-    }
     getfromNavigator()
 
     const coord = getfromNavigator()
-    getWeather(coord.latitude, coord.longitude)
+    // getWeather()
 
     function transparent() {
         const myClass = document.getElementById("wrapper");
@@ -209,7 +204,7 @@ function App() {
                                 <FontAwesomeIcon className="icon_map" icon={faLocationDot} />
                             </NavLink>
                         </div>
-                        <h1 id="h1">20 &#176;</h1>
+                        <h1 id="h1">{weather.windspeed + ""} &#176;</h1>
 
                         <div className="temperature-img">
                             <div>
