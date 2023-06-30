@@ -4,5 +4,5 @@ import Weather from "../../weather/types/Weather";
 export default interface LocateState {
     coordinates: Coordinates,
     error?: string,
-    current_weather: Weather
+
 }

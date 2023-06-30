@@ -1,7 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  userData: null
+  userData: {
+    latitude: 0,
+    longitude: 0
+  }
 };
 
 export const rootSlice = createSlice({
@@ -10,7 +13,8 @@ export const rootSlice = createSlice({
   reducers: {
     getUserData: (state, action) => {
       console.log(action);
-      state.userData = action.payload;
+      state.userData.latitude = action.payload.latitude;
+      state.userData.longitude = action.payload.longitude;
     }
   }
 });

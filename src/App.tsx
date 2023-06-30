@@ -70,7 +70,7 @@ function App() {
                 return "partly cloudy"
                 break;
             case 3:
-                return "and overcast"
+                return "Mainly clear and overcast"
                 break;
             case 45:
                 return "Fog"

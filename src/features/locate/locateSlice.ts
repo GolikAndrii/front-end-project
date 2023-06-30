@@ -12,11 +12,6 @@ const initialState: LocateState = {
         longitude: 0,
         city: "no city",
     },
-    current_weather: {
-        temperature: 0,
-        windspeed: 0,
-        weathercode: 0
-    },
     error: undefined
 };
 
