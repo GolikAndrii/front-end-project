@@ -23,6 +23,7 @@
 body{
     height: 100vh;
     background: linear-gradient(135deg, var(--blue-1), var(--blue-2));
+    overflow-x:hidden;
 }
 .wrapper{
     font-size: 16px;
@@ -30,12 +31,12 @@ body{
     max-width: 28em;
     position: absolute;
     transform: translate(-50%, -50%);
-    top: 50%;
+    top: 45%;
     left: 50%;
 }
 .container{
     width: 100%;
-    background: var(--transp-white-2);
+    background: rgb(60 94 202 / 59%);;
     backdrop-filter: blur(10px);
     padding: 3em 1.8em;
     border: 2px solid var(--transp-white-2);
@@ -87,10 +88,11 @@ body{
 .input-search:focus{
     border-color: var(--white);
 }
-.search-container button{
+.geo{
     color: var(--blue-2);
     background-color: var(--white);
     border-radius: 0.3em;
+    height: 35px;
 }
 #result h2{
     color: var(--white);
@@ -99,8 +101,19 @@ body{
     font-weight: 600;
     margin: 1.25em 0;
 }
+.ip{
+    font-size: 0.6em;
+    color:#c4c4c4;
+    margin-top: 2em;
+    margin-bottom: 0;
+}
+.img_geo{
+    color: var(--white);
+}
+
 .weather,
 .desc {
+    text-align: center;
     color: var(--off-white);
     text-transform: uppercase;
     letter-spacing: 0.2em;
@@ -112,34 +125,50 @@ body{
     margin-top: -0.7em;
 }
 #result img{
-    margin: 0.6em 0 0 0;
-    width: 6.2em;
+    width: 5em;
     filter: drop-shadow(0 1.8em 3.7em var(--shadow));
 }
+.icon_map{
+    color: white;
+    cursor: pointer;
+    font-size: 1.6em;
+}
+
 #result h1{
-    font-size: 4em;
-    margin: 0.3em 0 0.7em 0;
+    font-size: 6em;
     line-height: 0;
     font-weight: 400;
     color: var(--white);
+    margin-bottom: 0.8em;
+    margin-top: 0.5em;
+}
+h4{
+    font-size: 1.3rem;
+    text-align: left;
+}
+.wind-speed{
+    flex-direction: column;
 }
 .temp-container{
-    display: flex;
-    justify-content: center;
-}
-.temp-container div{
-    padding: 0.3em 1em;
+    margin-top: 3em;
+    margin-bottom: -2em;
+    align-items: flex-start;
+    justify-content: space-between;
 }
 .temp-container div:first-child{
+    padding-right: 10px;
     border-right: 1px solid var(--transp-white-1);
 }
 .temp-container .title{
-    font-weight: 600;
+    font-weight: 300;
     color: var(--white);
 }
 .temp-container .temp{
     font-weight: 300;
     color: var(--off-white);
+}
+.min-max__grad{
+    border-right: none !important;
 }
 .msg{
     margin-top: 1.8em;
@@ -147,6 +176,9 @@ body{
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.1em;
+}
+.min-max{
+    width: 35%;
 }
 .stick{
     position: sticky;
@@ -309,6 +341,168 @@ input {
     transition-timing-function: ease-out;
 }
 
+.cloud img {
+    width: 100%;
+    max-height: 100vh;
+    left: 0;
+    top: 0;
+    position: absolute;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    pointer-events: none;
+    overflow:hidden;
+}
+@-webkit-keyframes animCloud {
+    from {
+        -webkit-transform: translateX(100%)
+    }
+    to {
+        -webkit-transform: translateX(-100%)
+    }
+}
+@-moz-keyframes animCloud {
+    from {
+        -moz-transform: translateX(100%)
+    }
+    to {
+        -moz-transform: translateX(-100%)
+    }
+}
+@keyframes animCloud {
+    from {
+        -webkit-transform: translateX(100%);
+        -moz-transform: translateX(100%);
+        -ms-transform: translateX(100%);
+        -o-transform: translateX(100%);
+        transform: translateX(100%)
+    }
+    to {
+        -webkit-transform: translateX(-100%);
+        -moz-transform: translateX(-100%);
+        -ms-transform: translateX(-100%);
+        -o-transform: translateX(-100%);
+        transform: translateX(-100%)
+    }
+}
+.cloud1 {
+    width: 100%;
+    -webkit-animation: animCloud 20s infinite linear;
+    -moz-animation: animCloud 20s infinite linear;
+    animation: animCloud 20s infinite linear;
+    z-index: -2;
+}
+.cloud2 {
+    width: 100%;
+    -webkit-animation: animCloud 40s infinite linear;
+    -moz-animation: animCloud 40s infinite linear;
+    animation: animCloud 40s infinite linear;
+    z-index: -2;
+}
+.cloud3 {
+    width: 100%;
+    -webkit-animation: animCloud 60s infinite linear;
+    -moz-animation: animCloud 60s infinite linear;
+    animation: animCloud 60s infinite linear;
+    z-index: -2;
+}
+.cloud4 {
+    width: 100%;
+    -webkit-animation: animCloud 80s infinite linear;
+    -moz-animation: animCloud 80s infinite linear;
+    animation: animCloud 80s infinite linear;
+    z-index: -2;
+}
+
+.warm{
+    margin-top: 2em;
+    margin-bottom: -2em;
+}
+
+.sun{
+    position: absolute;
+    top: -400px;
+    right: 0;
+    left: -400px;
+}
+
+.arrow{
+    margin: -15px 15px 0 15px;
+    font-weight: 600;
+    font-size: 2em;
+    color: #fff;
+}
+.i-want{
+    font-size: 1.6em;
+    color: white;
+}
+.warm img{
+    cursor: pointer;
+    -webkit-filter: grayscale(100%) !important;
+    filter: grayscale(100%) !important;
+}
+.warm img:hover{
+    -webkit-filter: grayscale(0%) !important;
+    filter: grayscale(0%) !important;
+}
+
+.newMap{
+    opacity: 100;
+    animation: ani 1.5s forwards;
+}
+@keyframes ani {
+    0% {opacity: 1;}
+    100% {opacity: 0;}
+}
+
+.temperature{
+    font-size: 5em;
+    color: white;
+    text-align: center;
+
+}
+
+.map{
+    /*height: 100vh;*/
+    display: none;
+}
+.map_new{
+    display: block !important;
+}
+.popUp{
+    width: 380px;
+    height: 250px;
+    background-color: rgb(3 132 203 / 57%);
+    position: absolute;
+    top: 5em;
+    left: 5em;
+    border-radius: 20px;
+    box-shadow: 0px 2px 4px rgb(127 125 125), -30px 0 20px -23px rgba(0, 0, 0, .8), 30px 0 20px -23px rgba(0, 0, 0, .8), 0 0 0px rgba(0, 0, 0, .1) inset;
+    z-index: 1000;
+}
+
+.temp-container-mini{
+    margin: 1em;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+.temp-container-mini h4{
+    color: white;
+}
+
+.humidity_mini{
+    text-align: right;
+}
+.humidity_mini > humidity{
+    margin-right: 0;
+}
+hr{
+    width: 80%;
+    border: 2px solid #ffffff;
+    margin: 0 auto;
+}
+
 
 
 @media  screen and (max-width: 450px) {
@@ -316,3 +510,5 @@ input {
         font-size: 14px;
     }
 }
+
+
